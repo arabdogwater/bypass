@@ -1,0 +1,36 @@
+
+spawn(function() local Hook;
+Hook = hookmetamethod(game, '__namecall', newcclosure(function(self, ...)
+    local args = {...}
+    local method =  getnamecallmethod()
+    if method == "InvokeServer" then
+        if args[1] == "idklolbrah2de" then
+            return "  ___XP DE KEY"
+        end
+    end
+    if method == "FireServer" and args[1] == "Reset" and args[3] ~= "XENON_ON_TOP" then
+        return task.wait(9e9)
+    end
+    if (method == "InvokeServer" or method == "InvokeClient") and args[1] == "Reset" and args[3] ~= "XENON_ON_TOP" then
+        return task.wait(9e9)
+    end
+    return Hook(self, ...)
+end))
+
+--// fix reset
+            local NewEvent = Instance.new("BindableEvent")
+            NewEvent.Event:Connect(function()
+                --Player.Character.PrimaryPart:Destroy()
+
+                local args = {
+                    [1] = "Reset",
+                    [2] = {
+                        ["Anchored"] = false
+                    },
+                    [3] = "XENON_ON_TOP"
+                }
+
+                game:GetService("Players").LocalPlayer.Character.RemoteEvent:FireServer(unpack(args))
+            end)
+
+            game:GetService("StarterGui"):SetCore("ResetButtonCallback", NewEvent) end)
